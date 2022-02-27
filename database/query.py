@@ -153,7 +153,7 @@ def concept_id_select(args, cursor=None):
     if args['category']:
         sql = '''SELECT * FROM concept WHERE %(category)s LIKE '%%%(search_keyword)s%%' OFFSET %(offset)s LIMIT %(limit)s'''%args
     else:
-        sql = '''SELECT * FROM concept OFFSET %(offset)s LIMIT %(limit)s'''
+        sql = '''SELECT * FROM concept OFFSET %(offset)s LIMIT %(limit)s'''%args
     cursor.execute(sql)
     data = cursor.fetchall()
 
@@ -195,7 +195,8 @@ def table_select(args, cursor=None):
             SELECT DISTINCT drug_concept_id as drug
             FROM drug_exposure
         ) drug ON drug.drug=concept.concept_id
-        '''
+        OFFSET %(offset)s LIMIT %(limit)s
+        '''%args
         # sql = '''
         # SELECT DISTINCT gender_concept_id as id FROM person;
         # SELECT DISTINCT race_concept_id as id FROM person;
