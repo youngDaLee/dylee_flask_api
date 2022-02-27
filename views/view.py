@@ -1,14 +1,12 @@
 from flask import Blueprint, request
 
-from main import api
 from utils.response import response
 from database import query
 
 bp = Blueprint('health', __name__, url_prefix='/health')
-ns  = api.namespace('health', description='헬스케어 데이터 조회 api')
 
 
-@ns.route('/stats', methods=['GET'])
+@bp.route('/stats', methods=['GET'])
 def stats():
     """
     환자와 방문 테이블들 간단한 통계를 제공하는 API
@@ -21,7 +19,7 @@ def stats():
         return response(500)
 
 
-@ns.route('/concept-id', methods=['GET'])
+@bp.route('/concept-id', methods=['GET'])
 def concept_id():
     """
     concept db에 대한 데이터 조회, 검색, 페이지네이션 제공 api
@@ -49,7 +47,7 @@ def concept_id():
         return response(500)
 
 
-@ns.route('/row', methods=['GET'])
+@bp.route('/row', methods=['GET'])
 def row():
     try:
         # concept_id = request.args['concept_id']
