@@ -11,8 +11,7 @@ def stats():
     """
     환자와 방문 테이블들 간단한 통계를 제공하는 API
     """
-    sp_args = {'test': 'test'}
-    is_suc, data = query.stats_data_select(sp_args)
+    is_suc, data = query.stats_data_select({})
     if is_suc:
         return response(200, data)
     else:
@@ -33,14 +32,14 @@ def concept_id():
     except KeyError:
         return response(400)
 
-    sp_args = {
+    args = {
         'offset': offset,
         'limit': limit,
         'category': category,
         'search_keyword': search_keyword,
     }
 
-    is_suc, data = query.concept_id_select(sp_args)
+    is_suc, data = query.concept_id_select(args)
     if is_suc:
         return response(200, data)
     else:
@@ -61,7 +60,7 @@ def row():
     except KeyError:
         return response(400)
 
-    sp_args = {
+    args = {
         # 'concept_id': concept_id,
         'offset': offset,
         'limit': limit,
@@ -69,7 +68,7 @@ def row():
         'search_keyword': search_keyword,
     }
 
-    is_suc, data = query.table_select(sp_args)
+    is_suc, data = query.table_select(args)
     if is_suc:
         return response(200, data)
     else:
